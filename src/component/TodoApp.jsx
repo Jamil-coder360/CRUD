@@ -3,13 +3,35 @@ import { TodoContext } from "../context/TodoContext";
 const TodoApp = () => {
   // const todo = useState((state) => state.todos);
   const [inputValue, setInputValue] = useState("");
+  const [edit, isEdit] = useState(false);
   const [text, setText] = useState("");
+  //   const [editId, setEditId] = useState(null);
   const [description, setDescription] = useState("");
-  const { todos, addTodos } = useContext(TodoContext);
+  const [updateText, setUpdateText] = useState("");
+  const [updateDescription, setUpdateDescription] = useState("");
+  const { todos, addTodos, deleteTodos, updateTodos } = useContext(TodoContext);
   const handleAdd = () => {
     addTodos(text, description);
     setText("");
     setDescription("");
+  };
+  const handleEdit = (id) => {
+    isEdit(id);
+    // setEditId(id);
+    updateDescription(todos.find((todo) => todo.id === id).description);
+    setUpdateText(todos.find((todo) => todo.id === id).text);
+    // setUpdateText(id.text)
+    // setUpdateDescription(id.description)
+  };
+  const handleSave = (id) => {
+    {
+      //null always return false so it will exit from the edit mode
+    }
+    // setEditId(null);
+    isEdit(false);
+    setUpdateText(text);
+    setUpdateDescription(description);
+    updateTodos(id, { id, text: updateText, description: updateDescription });
   };
   //   const todo = [
   //     {
@@ -76,20 +98,60 @@ const TodoApp = () => {
             </div>
 
             <div className="mt-10">
-                <h1 className="pb-4 text-3xl text-black font-bold uppercase">to list :</h1>
+              <h1 className="pb-4 text-3xl text-black font-bold uppercase">
+                to list :
+              </h1>
               <ul className="flex flex-col gap-4">
                 {todos.map((item) => (
                   <li
                     key={item.id}
                     className="border border-border rounded-xl p-4 mb-4"
                   >
-                    <h2 className="text-2xl font-bold">{item.text}</h2>
-                    <p className="text-gray-600">{item.description}</p>
+                    {/* if i use only (edit ?) it can select all items that's why I use here (edit === item.id) it find the selected item from the list/array */}
+
+                    {edit === item.id ? (
+                      <input
+                        onChange={(e) => setUpdateText(e.target.value)}
+                        type="text"
+                        value={updateText}
+                        placeholder="Edit title..."
+                        className="w-100 p-3 bg-gray-200 text-black rounded-xl outline-0"
+                      />
+                    ) : (
+                      <h2 className="text-2xl font-bold">{item.text}</h2>
+                    )}
+                    {edit === item.id ? (
+                      <input
+                        onChange={(e) => setUpdateDescription(e.target.value)}
+                        type="text"
+                        value={updateDescription}
+                        placeholder="Edit description..."
+                        className="mt-10 w-100 p-3 bg-gray-200 text-black rounded-xl outline-0"
+                      />
+                    ) : (
+                      <p className="text-gray-600">{item.description}</p>
+                    )}
                     <div className="flex items-center justify-between gap-4 mt-4">
-                      <button className="bg-blue-500 text-white py-2 px-4 rounded-xl">
-                        Edit
-                      </button>
-                      <button className="bg-red-500 text-white py-2 px-4 rounded-xl">
+                      {edit === item.id ? (
+                        <button
+                          onClick={() => handleSave(item.id)}
+                          className="bg-green-500 text-white py-2 px-4 rounded-xl"
+                        >
+                          Save
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => handleEdit(item.id)}
+                          className="bg-blue-500 text-white py-2 px-4 rounded-xl"
+                        >
+                          Edit
+                        </button>
+                      )}
+
+                      <button
+                        onClick={() => deleteTodos(item.id)}
+                        className="bg-red-500 text-white py-2 px-4 rounded-xl"
+                      >
                         Delete
                       </button>
                     </div>
