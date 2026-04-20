@@ -1,8 +1,9 @@
 import React from 'react'
+import TodoApp from './component/TodoApp'
 
 const App = () => {
   return (
-    <div className='bg-fuchsia-900'>App</div>
+    <TodoApp />
   )
 }
 
