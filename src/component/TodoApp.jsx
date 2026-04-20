@@ -11,9 +11,13 @@ const TodoApp = () => {
   const [updateDescription, setUpdateDescription] = useState("");
   const { todos, addTodos, deleteTodos, updateTodos } = useContext(TodoContext);
   const handleAdd = () => {
-    addTodos(text, description);
-    setText("");
-    setDescription("");
+      if (todos.length >= 10) {
+          alert("Maximum 10 todos allowed!");
+          return;
+        }
+        addTodos(text, description);
+        setText("");
+        setDescription("");
   };
   const handleEdit = (id) => {
     isEdit(id);
@@ -126,7 +130,7 @@ const TodoApp = () => {
                         type="text"
                         value={updateDescription}
                         placeholder="Edit description..."
-                        className="mt-10 w-100 p-3 bg-gray-200 text-black rounded-xl outline-0"
+                        className="mt-4 w-100 p-3 bg-gray-200 text-black rounded-xl outline-0"
                       />
                     ) : (
                       <p className="text-gray-600">{item.description}</p>
