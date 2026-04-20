@@ -22,7 +22,7 @@ const TodoApp = () => {
   const handleEdit = (id) => {
     isEdit(id);
     // setEditId(id);
-    updateDescription(todos.find((todo) => todo.id === id).description);
+    setUpdateDescription(todos.find((todo) => todo.id === id).description);
     setUpdateText(todos.find((todo) => todo.id === id).text);
     // setUpdateText(id.text)
     // setUpdateDescription(id.description)
@@ -59,21 +59,21 @@ const TodoApp = () => {
   //   ];
 
   return (
-    <section>
+    <section className=" bg-black/20 backdrop-blur-2xl py-20">
       <div className="container mx-auto p-10">
-        <div className=" flex flex-col items-center justify-center  ">
-          <div className="w-150 border border-border rounded-2xl p-5 py-10">
+        <div className=" flex flex-col items-center justify-center ">
+          <div className="w-150 border border-border rounded-2xl p-5 py-10 shadow-xl shadow-fuchsia-200 bg-white ">
             <h1 className="text-5xl text-black font-bold text-center">
               Todo App
             </h1>
-            <p className="text-lg text-gray-600 text-center mt-4">
+            <p className="text-lg text-gray-600 text-center py-4">
               Welcome to your Todo App!
             </p>
             <span className="text-lg text-gray-600">
               todo count :  <span className="font-bold text-blue-400">{todos.length}</span>
             </span>
 
-            <h1 className="text-2xl font-bold mt-10 pb-5 uppercase border-b">
+            <h1 className="text-2xl font-bold py-5 uppercase border-b">
               add todos :
             </h1>
             <div className="flex items-center justify-center gap-4 pb-10 border-b border-border mt-10   ">

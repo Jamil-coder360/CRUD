@@ -3,7 +3,8 @@ import TodoApp from './component/TodoApp'
 
 const App = () => {
   return (
-    <TodoApp />
+
+      <TodoApp />
   )
 }
 
