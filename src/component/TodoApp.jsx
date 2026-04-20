@@ -62,7 +62,7 @@ const TodoApp = () => {
     <section>
       <div className="container mx-auto p-10">
         <div className=" flex flex-col items-center justify-center  ">
-          <div className="w-[600px] border border-border rounded-2xl p-5 py-10">
+          <div className="w-150 border border-border rounded-2xl p-5 py-10">
             <h1 className="text-5xl text-black font-bold text-center">
               Todo App
             </h1>
@@ -70,7 +70,7 @@ const TodoApp = () => {
               Welcome to your Todo App!
             </p>
             <span className="text-lg text-gray-600">
-              todo count : {todos.length}
+              todo count :  <span className="font-bold text-blue-400">{todos.length}</span>
             </span>
 
             <h1 className="text-2xl font-bold mt-10 pb-5 uppercase border-b">
