@@ -8,8 +8,16 @@ const TodoContext = createContext({
 });
 const TodoProvider = ({ children }) => {
     const [todos, setTodos] = useState([]);
-    const addTodos = (todo) => {
-        setTodos([...todos, todo]);
+    const addTodos = (text, description) => {
+        console.log("add");
+        // const newTodo = {
+        //     id: Date.now(),
+        //     text: text,
+        //     description: "",
+        //     // completed: false
+        // };
+        setTodos([...todos, {id: Date.now(), text: text, description: description}]);      
+        console.log(todos);
     };
     const deleteTodos = (id) => {
         setTodos(todos.filter((todo) => todo.id !== id));
