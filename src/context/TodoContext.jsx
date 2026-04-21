@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import { toast } from "react-toastify";
 const TodoContext = createContext({
     todos : [],
     setTodos : () => {},
@@ -21,6 +22,7 @@ const TodoProvider = ({ children }) => {
     };
     const deleteTodos = (id) => {
         setTodos(todos.filter((todo) => todo.id !== id));
+        toast.success("Todo deleted successfully!");
     };
     const updateTodos = (id, updatedTodo) => {
         setTodos(todos.map((todo) => (todo.id === id ? updatedTodo : todo)));

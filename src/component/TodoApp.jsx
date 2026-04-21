@@ -1,7 +1,7 @@
 import React, { use, useContext, useState } from "react";
 import { TodoContext } from "../context/TodoContext";
+import { toast } from "react-toastify";
 const TodoApp = () => {
-  // const todo = useState((state) => state.todos);
   const [inputValue, setInputValue] = useState("");
   const [edit, isEdit] = useState(false);
   const [text, setText] = useState("");
@@ -9,16 +9,31 @@ const TodoApp = () => {
   const [description, setDescription] = useState("");
   const [updateText, setUpdateText] = useState("");
   const [updateDescription, setUpdateDescription] = useState("");
+
+  // import context
   const { todos, addTodos, deleteTodos, updateTodos } = useContext(TodoContext);
+
+  // add todo function
+
   const handleAdd = () => {
-      if (todos.length >= 10) {
-          alert("Maximum 10 todos allowed!");
-          return;
-        }
-        addTodos(text, description);
-        setText("");
-        setDescription("");
+  if (!text.trim() || !description.trim()) {
+    toast.error("Please fill all fields!");
+    return;
+  }
+
+    if (todos.length >= 10) {
+      toast.warning("Maximum 10 todos allowed!");
+      return;
+    }
+    addTodos(text, description);
+    setText("");
+    setDescription("");
+
+    toast.success("Todo added successfully!");
   };
+
+  // eidt function for update todo
+
   const handleEdit = (id) => {
     isEdit(id);
     // setEditId(id);
@@ -27,6 +42,9 @@ const TodoApp = () => {
     // setUpdateText(id.text)
     // setUpdateDescription(id.description)
   };
+
+  // save function for update todo
+
   const handleSave = (id) => {
     {
       //null always return false so it will exit from the edit mode
@@ -36,7 +54,11 @@ const TodoApp = () => {
     setUpdateText(text);
     setUpdateDescription(description);
     updateTodos(id, { id, text: updateText, description: updateDescription });
+    toast.success("Todo updated successfully!");
   };
+
+  // static todo data
+
   //   const todo = [
   //     {
   //       id: 1,
@@ -70,7 +92,8 @@ const TodoApp = () => {
               Welcome to your Todo App!
             </p>
             <span className="text-lg text-gray-600">
-              todo count :  <span className="font-bold text-blue-400">{todos.length}</span>
+              todo count :{" "}
+              <span className="font-bold text-blue-400">{todos.length}</span>
             </span>
 
             <h1 className="text-2xl font-bold py-5 uppercase border-b">
@@ -100,11 +123,14 @@ const TodoApp = () => {
                 Add Todo
               </button>
             </div>
-
+            {/* new todo list */}
             <div className="mt-10">
               <h1 className="pb-4 text-3xl text-black font-bold uppercase">
                 to list :
               </h1>
+
+              {/* new todo data */}
+
               <ul className="flex flex-col gap-4">
                 {todos.map((item) => (
                   <li
