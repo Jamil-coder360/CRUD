@@ -59,7 +59,7 @@ const TodoApp = () => {
   //   ];
 
   return (
-    <section className=" bg-black/20 backdrop-blur-2xl py-20">
+    <section className=" py-20">
       <div className="container mx-auto p-10">
         <div className=" flex flex-col items-center justify-center ">
           <div className="w-150 border border-border rounded-2xl p-5 py-10 shadow-xl shadow-fuchsia-200 bg-white ">
