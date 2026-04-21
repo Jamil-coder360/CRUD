@@ -27,8 +27,17 @@ const TodoProvider = ({ children }) => {
     const updateTodos = (id, updatedTodo) => {
         setTodos(todos.map((todo) => (todo.id === id ? updatedTodo : todo)));
         };
+
+    const deleteAll = () => {
+        if (todos.length === 0) {
+            toast.info("No todos to delete!");
+            return;
+        }
+        setTodos([]);
+        toast.success("All todos deleted successfully!");
+    };    
     return (    
-        <TodoContext.Provider value={{ todos, setTodos, addTodos, deleteTodos, updateTodos }}>
+        <TodoContext.Provider value={{ todos, setTodos, addTodos, deleteTodos, updateTodos, deleteAll }}>
             {children}
         </TodoContext.Provider>
     );

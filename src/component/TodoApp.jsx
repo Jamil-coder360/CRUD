@@ -3,6 +3,7 @@ import { TodoContext } from "../context/TodoContext";
 import { toast } from "react-toastify";
 const TodoApp = () => {
   const [inputValue, setInputValue] = useState("");
+  // const [image, setImage] = useState(null);
   const [edit, isEdit] = useState(false);
   const [text, setText] = useState("");
   //   const [editId, setEditId] = useState(null);
@@ -11,7 +12,7 @@ const TodoApp = () => {
   const [updateDescription, setUpdateDescription] = useState("");
 
   // import context
-  const { todos, addTodos, deleteTodos, updateTodos } = useContext(TodoContext);
+  const { todos, addTodos, deleteTodos, updateTodos, deleteAll } = useContext(TodoContext);
 
   // add todo function
 
@@ -115,6 +116,14 @@ const TodoApp = () => {
                   placeholder="Add a description..."
                   className="w-100 p-3 bg-gray-200 text-black rounded-xl outline-0"
                 />
+                {/* <input 
+  type="file" 
+  accept="image/*"
+  onChange={(e) => {
+    const file = e.target.files[0];
+    setImage(URL.createObjectURL(file));
+  }}
+/> */}
               </div>
               <button
                 onClick={handleAdd}
@@ -125,9 +134,13 @@ const TodoApp = () => {
             </div>
             {/* new todo list */}
             <div className="mt-10">
+              <div className="flex items-center justify-between"> 
+
               <h1 className="pb-4 text-3xl text-black font-bold uppercase">
                 to list :
               </h1>
+              <button onClick={deleteAll}  className="bg-red-500 text-white py-2 px-4 rounded-xl">Clear All</button>
+              </div>
 
               {/* new todo data */}
 
@@ -138,6 +151,9 @@ const TodoApp = () => {
                     className="border border-border rounded-xl p-4 mb-4"
                   >
                     {/* if i use only (edit ?) it can select all items that's why I use here (edit === item.id) it find the selected item from the list/array */}
+   {/* {image && (
+    <img src={image} alt="preview" className="w-full h-40 object-cover rounded-lg" />
+  )} */}
 
                     {edit === item.id ? (
                       <input
